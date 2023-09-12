@@ -2,17 +2,20 @@ package jpabook.model.entity;
 
 import jakarta.persistence.*;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+
 @Entity
+@Table(name="MEMBER")
 public class Member {
 
-    public String getUsername;
     @Id
-    @GeneratedValue
     @Column(name = "MEMBER_ID")
     private String id;
-
     private String username;
 
+
+    // 연관관계 매핑
     @ManyToOne
     @JoinColumn(name = "TEAM_ID")
     private Team team;
@@ -21,9 +24,6 @@ public class Member {
 //    public void setTeam(Team team) {
 //        this.team = team;
 //    }
-
-
-    
 
     // join table - 다대다 관계
 
@@ -44,6 +44,7 @@ public class Member {
     }
 
     public void setTeam(Team team2) {
+        this.team = team;
     }
 
     public void setId(String id) {

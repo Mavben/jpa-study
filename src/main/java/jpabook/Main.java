@@ -44,7 +44,9 @@ public class Main {
         emf.close(); // 엔티티 매니저 팩토리 종료 - 애플리케이션 종료를 의미함
     }
 
+
     // 비즈니스 로직
+
     private static void logic(EntityManager em) {
 
         // 등록
@@ -75,7 +77,12 @@ public class Main {
 
 
     public void testSave() {
+        Member member1 = new Member("member1", "회원1");
+        Member member2 = new Member("member2", "회원2");
+        Team team1 = new Team("team1", "팀1");
 
+        member1.setTeam(team1);
+        member2.setTeam(team1);
     }
 
     // 연관관계 수정
