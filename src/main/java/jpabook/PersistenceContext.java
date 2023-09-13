@@ -1,11 +1,10 @@
 package jpabook;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
 import jpabook.model.entity.Member;
 
-import java.sql.Connection;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 
 public class PersistenceContext {
 
@@ -26,30 +25,14 @@ public class PersistenceContext {
         memberA.setUsername("hi");
         memberA.setAge(10);
 
-        // em.update(member) - 이런 메소드 없음
+        // em.update(member) - 해당 메소드 없음
 
         transaction.commit(); // 트랜잭션 커밋
-
 
         // 준영속
         // 엔티티를 준영속 상태로 전환 : detach()
 
-        public void testDetached() {
-
-            // 회원 엔티티 생성, 비영속 상태
-            Member member = new Member();
-            member.setId("memberA");
-            member.setUsername("회원A");
-
-            // 회원 엔티티 영속 상태
-            EntityManager em = null;
-            em.persist(member);
-
-            // 회원 엔티티를 영속성 컨텍스트로 분리, 준영속 상태
-            em.detach(member);
-
-            transaction.commit(); // 트랜잭션 커밋
-        }
+        testDetached(em); // 'em' 인스턴스를 매개변수로 전달
 
         // 영속성 컨텍스트 초기화 : clear()
         // 영속 엔티티 조회
@@ -60,9 +43,92 @@ public class PersistenceContext {
 
         // 준영속 상태
         member.setUsername("changeName");
+    }
+
+    // 메서드 시그니처를 수정하여 'em' 매개변수를 받도록 변경
+    public static void testDetached(EntityManager em) {
+
+        // 회원 엔티티 생성, 비영속 상태
+        Member member = new Member();
+        member.setId(Long.valueOf("memberA"));
+        member.setUsername("회원A");
+
+        // 회원 엔티티 영속 상태
+        em.persist(member);
+
+        // 회원 엔티티를 영속성 컨텍스트로 분리, 준영속 상태
+        em.detach(member);
 
     }
 }
+
+
+
+//package jpabook;
+//
+//
+//import jpabook.model.entity.Member;
+//
+//import javax.persistence.EntityManager;
+//import javax.persistence.EntityManagerFactory;
+//import javax.persistence.EntityTransaction;
+//
+//public class PersistenceContext {
+//
+//    public static void main(String[] args) {
+//
+//        // 변경 감지 - 엔티티 수정하기
+//
+//        EntityManagerFactory emf = null;
+//        EntityManager em = emf.createEntityManager();
+//        EntityTransaction transaction = em.getTransaction();
+//
+//        transaction.begin(); // 트랜잭션 시작
+//
+//        // 영속 엔티티 조회
+//        Member memberA = em.find(Member.class, "memberA");
+//
+//        // 영속 엔티티 데이터 수정
+//        memberA.setUsername("hi");
+//        memberA.setAge(10);
+//
+//        // em.update(member) - 해당 메소드 없음
+//
+//        transaction.commit(); // 트랜잭션 커밋
+//
+//
+//        // 준영속
+//        // 엔티티를 준영속 상태로 전환 : detach()
+//
+//        public void testDetached() {
+//
+//            // 회원 엔티티 생성, 비영속 상태
+//            Member member = new Member();
+//            member.setId(Long.valueOf("memberA"));
+//            member.setUsername("회원A");
+//
+//            // 회원 엔티티 영속 상태
+//            EntityManager em = null;
+//            em.persist(member);
+//
+//            // 회원 엔티티를 영속성 컨텍스트로 분리, 준영속 상태
+//            em.detach(member);
+//
+//            transaction.commit(); // 트랜잭션 커밋
+//        }
+//
+//        // 영속성 컨텍스트 초기화 : clear()
+//        // 영속 엔티티 조회
+//
+//        Member member = em.find(Member.class, "memberA");
+//
+//        em.clear();
+//
+//        // 준영속 상태
+//        member.setUsername("changeName");
+//
+//    }
+//}
 
 
 /*

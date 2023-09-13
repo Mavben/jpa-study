@@ -3,17 +3,45 @@ package jpabook.model.entity;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Team {
 
     @Id
     @Column(name = "TEAM_ID")
-    private String id;
+    private Long id;
     private String username;
 
+    @OneToMany
+    @JoinColumn(name = "TEAM_ID")
+    private List<Member> members = new ArrayList<Member>();
 
-    @ManyToOne // 다대일 매핑 정보
-    @JoinColumn(name="TEAM_ID") // JoinColumn - 외래 키 매핑할 때
-    private Team team;
+    public Team(String team1, String 팀1) {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public List<Member> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Member> members) {
+        this.members = members;
+    }
 }

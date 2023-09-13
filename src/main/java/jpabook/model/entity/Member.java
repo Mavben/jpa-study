@@ -1,62 +1,77 @@
 package jpabook.model.entity;
 
-import jakarta.persistence.*;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="MEMBER")
 public class Member {
 
-    @Id
+    @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
-    private String id;
+    private Long id;
     private String username;
+    private String getUsername;
 
 
-    // 연관관계 매핑
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
+    // Member 엔티티에서 Product 엔티티로의 양방향 관계 설정
+    @ManyToMany
+    @JoinTable(name = "MEMBER_PRODUCT",
+        joinColumns = @JoinColumn(name = "MEMBER_ID"),
+        inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID")
+    )
 
-//    // 연관관계 설정
-//    public void setTeam(Team team) {
-//        this.team = team;
-//    }
+    private List<Product> products = new ArrayList<>();
 
-    // join table - 다대다 관계
-
-    public Member(String 회원2) {
-        this(null, 회원2);
+    public void addProduct(Product product) {
+        products.add(product);
+        //product.getMembers().add(this);
     }
 
+    public List<Product> getProducts() {
+        return null;
+    }
 
-
-    public Member(String member2, String 회원2) {
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public Member() {
 
     }
 
-    public void getTeam() {
+    public Member(String member1, String 회원1) {
     }
 
-    public void setTeam(Team team2) {
-        this.team = team;
+    public String getGetUsername() {
+        String getUsername = null;
+        return getUsername;
     }
 
-    public void setId(String id) {
+    public void setGetUsername(String getUsername) {
+        this.getUsername = getUsername;
     }
 
-    public void setUsername(String 펭수) {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public void setUsername(String hi) {
     }
 
     public void setAge(int i) {
     }
 
-    public String getUsername() {
+    public void setTeam(Team team1) {
+    }
+
+    public String getName() {
+        return null;
     }
 }
 
