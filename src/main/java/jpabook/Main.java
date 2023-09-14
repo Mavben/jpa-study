@@ -1,14 +1,13 @@
 package jpabook;
 
+import jdk.internal.loader.BuiltinClassLoader;
 import jpabook.model.entity.Member;
-import jpabook.model.entity.Product;
 import jpabook.model.entity.Team;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
 
 public class Main {
 
@@ -19,6 +18,8 @@ public class Main {
 
         try {
             tx.begin();
+
+
             logic(em);
             tx.commit();
         } catch (Exception e) {
@@ -44,22 +45,41 @@ public class Main {
         em.persist(member2);
     }
 
-    public void find(EntityManager em) {
-        Member member = em.find(Member.class, "member1");
-        List<Product> products = member.getProducts();
-        for (Product product : products) {
-            System.out.println("product.name = " + product.getName());
-        }
+    // 회원과 팀 정보 출력하는 비즈니스 로직
+    public static void printUserAndTeam(String memberId) {
+
+        Member member = em.find(Member.class, memberId);
+        Team team = member.getTeam();
+        System.out.println("회원 이름: " + member.getUsername());
+        System.out.println("소속팀 : " + team.getName());
+
     }
 
-    public void findInverse(EntityManager em) {
-        Product product = em.find(Product.class, "productA");
-        List<Member> members = (List<Member>) product.getMembers();
-        for (Member member : members) {
-            System.out.println("member = " + member.getName());
-        }
+    // 회원 정보만 출력하는 비즈니스 로직
+    // 팀 엔티티 출력 안함 -> 지연 로딩
+    // 가짜 객체 필요 = 프록시 객체
+    public static void printUser(String memberId) {
+        Member member = em.find(Member.class, memberId);
+        System.out.println("회원 이름: " + member.getUsername());
     }
 }
+
+
+
+//    public void find(EntityManager em) {
+//        Member member = em.find(Member.class, "member1");
+//        List<Product> products = member.getProducts();
+//        for (Product product : products) {
+//            System.out.println("product.name = " + product.getName());
+//        }
+//    }
+//
+//    public void findInverse(EntityManager em) {
+//        Product product = em.find(Product.class, "productA");
+//        List<Member> members = (List<Member>) product.getMembers();
+//        for (Member member : members) {
+//            System.out.println("member = " + member.getName());
+//        }
 
 
 

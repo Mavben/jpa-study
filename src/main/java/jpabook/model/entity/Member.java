@@ -15,18 +15,36 @@ public class Member {
     private String getUsername;
 
 
-    // Member 엔티티에서 Product 엔티티로의 양방향 관계 설정
-    @ManyToMany
-    @JoinTable(name = "MEMBER_PRODUCT",
-        joinColumns = @JoinColumn(name = "MEMBER_ID"),
-        inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID")
-    )
+    // 즉시 로딩
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
+
+    // 즉시 로딩 실행
+    Member member = em.find(Member.class, "member1");
+    Team team = member.getTeam(); // 객체 그래프 탐색
+
+
+    // 지연 로딩
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
+
+    //
+
+
+//    // Member 엔티티에서 Product 엔티티로의 양방향 관계 설정
+//    @ManyToMany
+//    @JoinTable(name = "MEMBER_PRODUCT",
+//        joinColumns = @JoinColumn(name = "MEMBER_ID"),
+//        inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID")
+//    )
 
     private List<Product> products = new ArrayList<>();
 
     public void addProduct(Product product) {
         products.add(product);
-        //product.getMembers().add(this);
+        product.getMembers().add(this);
     }
 
     public List<Product> getProducts() {
@@ -71,6 +89,14 @@ public class Member {
     }
 
     public String getName() {
+        return null;
+    }
+
+    public Team getTeam() {
+        return null;
+    }
+
+    public String getUsername() {
         return null;
     }
 }
