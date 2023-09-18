@@ -4,10 +4,8 @@ import jdk.internal.loader.BuiltinClassLoader;
 import jpabook.model.entity.Member;
 import jpabook.model.entity.Team;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.List;
 
 public class Main {
 
@@ -35,6 +33,7 @@ public class Main {
         Team team1 = new Team("team1", "팀1");
         Member member1 = new Member("member1", "회원1");
         Member member2 = new Member("member2", "회원2");
+        Member member3 = new Member("member3", "회원3");
 
         // 양방향 연관관계 설정
         member1.setTeam(team1);
@@ -43,6 +42,22 @@ public class Main {
         em.persist(team1);
         em.persist(member1);
         em.persist(member2);
+
+        em.flush();
+        em.clear();
+
+        String userNameParam = "User1";
+
+        TypedQuery<Member> query =
+                em.createQuery("SELECT m FROM Member m where m.username = :username",
+                        Member.class");
+
+        query.setParameter("username", userNameParam);
+        List<Member> resultList = query.getResultList();
+
+        TypedQuery<Member> query =
+                em.createQuery("SELECT m FROM Member m where m.username = :username",
+                        Member.class");
     }
 
     // 회원과 팀 정보 출력하는 비즈니스 로직
@@ -59,11 +74,11 @@ public class Main {
     // 팀 엔티티 출력 안함 -> 지연 로딩
     // 가짜 객체 필요 = 프록시 객체
     public static void printUser(String memberId) {
+
         Member member = em.find(Member.class, memberId);
         System.out.println("회원 이름: " + member.getUsername());
     }
 }
-
 
 
 //    public void find(EntityManager em) {
@@ -240,3 +255,13 @@ public class Main {
 //    }
 //
 //}
+
+
+
+
+
+
+
+
+
+

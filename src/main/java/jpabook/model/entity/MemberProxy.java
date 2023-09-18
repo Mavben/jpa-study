@@ -1,5 +1,5 @@
 package jpabook.model.entity;
 
-public class MemberProxy
-{
+public class MemberProxy extends Member {
+
 }
