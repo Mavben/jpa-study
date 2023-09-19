@@ -78,6 +78,9 @@ public class Main {
         Member member = em.find(Member.class, memberId);
         System.out.println("회원 이름: " + member.getUsername());
     }
+
+
+
 }
 
 

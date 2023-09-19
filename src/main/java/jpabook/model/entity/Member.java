@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="MEMBER")
+@NamedQuery(name = "findAllEmployees", query = "SELECT m FROM Member m where m.username= :username")
+    // 엔터티 클래스의 속성과 메서드 정의
+
+//@Entity
+//@Table(name="MEMBER")
 public class Member {
 
     @Id @GeneratedValue
@@ -29,8 +33,6 @@ public class Member {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
-
-    //
 
 
 //    // Member 엔티티에서 Product 엔티티로의 양방향 관계 설정
