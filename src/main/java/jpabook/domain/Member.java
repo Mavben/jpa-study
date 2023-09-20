@@ -1,4 +1,4 @@
-package jpabook.model.entity;
+package jpabook.domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
-package jpabook.model.entity;
+package jpabook.domain;
 
-import jpabook.model.entity.item.Item;
+import jpabook.domain.item.Item;
 
 import javax.persistence.*;
 

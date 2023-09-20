@@ -1,8 +1,7 @@
 package jpabook;
 
-import jdk.internal.loader.BuiltinClassLoader;
-import jpabook.model.entity.Member;
-import jpabook.model.entity.Team;
+import jpabook.domain.Member;
+import jpabook.domain.Team;
 
 import javax.persistence.*;
 import java.util.List;

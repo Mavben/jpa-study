@@ -1,4 +1,4 @@
-package jpabook.model.entity;
+package jpabook.domain;
 
 
 import javax.persistence.MappedSuperclass;

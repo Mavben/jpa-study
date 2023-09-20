@@ -1,6 +1,6 @@
 package jpabook;
 
-import jpabook.model.entity.Member;
+import jpabook.domain.Member;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

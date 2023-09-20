@@ -1,4 +1,4 @@
-package jpabook.model.entity;
+package jpabook.domain;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
