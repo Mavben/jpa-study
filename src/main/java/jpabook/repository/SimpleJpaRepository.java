@@ -1,4 +1,4 @@
-package jpabook.domain.repository;
+package jpabook.repository;
 
 public class SimpleJpaRepository {
 }

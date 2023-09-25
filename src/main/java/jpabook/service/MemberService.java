@@ -1,4 +1,4 @@
-package jpabook.domain.service;
+package jpabook.service;
 
 public class MemberService {
 }

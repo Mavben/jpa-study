@@ -1,4 +1,4 @@
-package jpabook.domain.exception;
+package jpabook.exception;
 
 @SuppressWarnings("serial")
 public class NotEnoughStockException extends RuntimeException {

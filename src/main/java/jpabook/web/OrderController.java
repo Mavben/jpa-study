@@ -1,4 +1,4 @@
-package jpabook.domain.web;
+package jpabook.web;
 
 public class OrderController {
 }
